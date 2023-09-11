@@ -1,0 +1,77 @@
+*{
+	margin:0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body
+{
+	font-family: Arial, Helvetica;
+	background: linear-gradient(
+		180deg,
+		rgba(37,34,63,1) 0%,
+		rgba(31,61,98,1) 50%,
+		rgba(35,40,72,1) 100%
+
+		);
+
+	display: flex;
+
+	justify-content: center;
+	min-height: 100vh;
+}
+
+table
+{
+	/*background-image: url(../fondo3.jpg);*/
+background-color: #F0EFEF;
+padding: 5px 5px;
+
+}
+
+label
+{
+font-family: Arial;
+padding: 4px;
+font-weight: bold;
+color: black;
+text-align: center;
+align:center;
+font-size: 18px;
+}
+
+input[type=button],input[type=submit]
+{
+
+border: none;
+color:black;
+font-weight: bold;
+padding: 6px 20px;
+text-align: center;
+font-size:16px;
+margin: 4px 4px;
+box-shadow: 3px 3px 3px black;
+position: center;
+font-family: Arial;
+}
+
+input[type="text"]
+{
+font-family: Arial;
+color:black;
+
+padding:4px;
+text-align: left;
+font-size: 16px;
+margin: 4px 4px;
+box-shadow: 2px 2px 2px black;
+}
+
+td
+{
+padding: 6px 4px;
+}
+
+
+}
+

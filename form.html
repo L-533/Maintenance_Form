@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formulario</title>
+	<link rel="stylesheet" href="css/form.css">
+	
+</head>
+<body>
+	<center>
+		<form name="Mantenimiento" action="maintenance.php" method="post" onsubmit="return validateForm()">
+
+			<table border="1">
+				<tr style="background-color: #BDBDBD;" >
+				<th colspan="4"><label>MANTENIMIENTO DE CLIENTES</label></th>
+				</tr>
+				<tr ><td colspan="4" ><label>Registrar Cliente </label></td></tr>
+				<tr>
+
+					<td><label>Tipo de documento</label></td><td><select  id="T_documento" name="txtt_documento" style="font-family: Arial;font-size: 16px; padding:4px; margin: 4px 4px; box-shadow: 2px 2px 2px black;">
+						<option value="Cédula de ciudadanía">Cédula de Ciudadanía</option>
+						<option value="Cédula de Extranjería">Cédula de Extranjería</option>
+						<option value="Pasaporte">Pasaporte</option>
+						<option value="Documento País Origen">Documento País Origen</option>
+					
+					
+					</select > 
+					</td>
+
+					<td><label>Número de documento</label></td><td><input type="text" value="" maxlength="20" name="txtdocumento" required  ></td>
+				</tr>
+				<tr>
+					<td><label>Primer nombre</label></td><td><input type="text" value="" maxlength="20" name="txtp_nombre"  required class="eliminar-campos"></td>
+					<td><label>Segundo nombre</label></td><td><input type="text" value="" maxlength="20" name="txts_nombre" class="eliminar-campos"></td>
+				</tr>
+				<tr>
+					<td><label>Primer apellido</label></td><td><input type="text" value="" maxlength="20" name="txtp_apellido" required class="eliminar-campos"></td>
+					<td><label >Segundo apellido</label></td><td><input type="text" value="" maxlength="20" name="txts_apellido" required class="eliminar-campos"></td>
+				</tr>
+				<tr>
+					<td ><label >Fecha de nacimiento</label></td><td><input style="font-family: Arial;font-size: 16px; padding:4px; margin: 4px 4px; box-shadow: 2px 2px 2px black;  "  type="date" value="" name="txtf_nacimiento" required  class="eliminar-campos"></td>
+
+				</tr>
+
+
+				<tr><td colspan="4" align="center">
+				<input type="submit" value="Nuevo" name="limpiardatos" onclick="eliminarCampos()" >
+				<input type="submit" value="Grabar" name="grabardatos" >
+				<input type="submit" value="Modificar" name="modificardatos" >
+				<input type="submit" value="Eliminar" name="eliminardatos" onclick="eliminarCampos()">
+				</td>
+				</tr>
+
+</table>
+<br>
+<table border="1">
+
+<tr style="background-color: #FB99D9;" ><th colspan="7" ><label>LISTADO DE CLIENTES </label></th></tr>
+
+<tr style="background-color: #BD2287;"><td><label>Tipo de Documento</label></td>
+	<td><label>Documento</label></td>
+	<td><label>Primer nombre</label></td>
+	<td><label>Segundo nombre</label></td>
+	<td><label>Primer apellido</label></td>
+	<td><label>Segundo apellido</label></td>
+	<td><label>Fecha de nacimiento</label></td>
+</tr>
+
+
+<?php 
+$sql="SELECT * FROM clientes";
+$result=mysqli_query($conn,$sql);
+
+while($mostrar=mysqli_fetch_array($result))
+{
+?>
+<tr> <td><?php echo $mostrar['tipo_documento'] ?>
+	<td><?php echo $mostrar['documento'] ?>
+	<td><?php echo $mostrar['p_nombre'] ?>
+	<td><?php echo $mostrar['s_nombre'] ?>
+	<td><?php echo $mostrar['p_apellido'] ?>
+	<td><?php echo $mostrar['s_apellido'] ?>
+	<td><?php echo $mostrar['fecha_nacimiento'] ?>
+
+
+</tr>
+<?php
+}
+
+?>
+
+</table>
+</form>
+
+  <script>
+
+
+  function validateForm() {
+    // Obtener el botón que fue presionado
+    var clickedButton = document.activeElement;
+    
+    // Verificar si el botón presionado es el botón "Eliminar"
+    if (clickedButton.name === "eliminardatos") {
+      // No realizar ninguna validación, simplemente enviar el formulario
+      return true;
+    }
+
+        if (clickedButton.name === "limpiardatos") {
+      // No realizar ninguna validación, simplemente enviar el formulario
+      return true;
+    }
+    // Si se presionó otro botón diferente al "Eliminar," realizar las validaciones.
+    var primerNombre = document.forms["Mantenimiento"]["txtp_nombre"].value;
+    var segundoNombre = document.forms["Mantenimiento"]["txts_nombre"].value;
+    var primerApellido = document.forms["Mantenimiento"]["txtp_apellido"].value;
+    var segundoApellido = document.forms["Mantenimiento"]["txts_apellido"].value;
+    var regex = /^[A-Za-záéíóúñÁÉÍÓÚÑ\s]+$/; // Expresión regular para aceptar solo letras y espacios
+
+    if (!regex.test(primerNombre)) {
+      alert("Por favor, ingresa solo caracteres válidos (letras y espacios) en el campo Primer nombre.");
+      return false;
+    }
+
+    if (segundoNombre.trim() !== "" && !regex.test(segundoNombre)) {
+      alert("Por favor, ingresa solo caracteres válidos (letras y espacios) en el campo Segundo nombre.");
+      return false;
+    }
+
+    if (!regex.test(primerApellido)) {
+      alert("Por favor, ingresa solo caracteres válidos (letras y espacios) en el campo Primer apellido.");
+      return false;
+    }
+
+    if (!regex.test(segundoApellido)) {
+      alert("Por favor, ingresa solo caracteres válidos (letras y espacios) en el campo Segundo apellido.");
+      return false;
+    }
+
+    return true;
+  }
+
+  function eliminarCampos() {
+    // Obtenemos todos los campos con la clase "eliminar-campos"
+    const camposAEliminar = document.getElementsByClassName('eliminar-campos');
+
+    // Iteramos sobre los campos y los deshabilitamos o eliminamos el contenido
+    for (let campo of camposAEliminar) {
+      campo.disabled = true; // O también puedes usar campo.value = '';
+    }
+  }
+</script>
+
+</center>
+	
+</body>
+</html>

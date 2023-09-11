@@ -1,0 +1,30 @@
+CREATE DATABASE test;
+use test;
+--
+-- Estructura de tabla para la tabla `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `tipo_documento` varchar(25) NOT NULL,
+  `documento` varchar(25) NOT NULL,
+  `p_nombre` varchar(25) NOT NULL,
+  `s_nombre` varchar(25) DEFAULT NULL,
+  `p_apellido` varchar(25) NOT NULL,
+  `s_apellido` varchar(25) NOT NULL,
+  `fecha_nacimiento` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- tabla `clientes`
+--
+
+INSERT INTO `clientes` (`tipo_documento`, `documento`, `p_nombre`, `s_nombre`, `p_apellido`, `s_apellido`, `fecha_nacimiento`) VALUES
+('Cédula de ciudadanía', '1002458255', 'Luis', 'Alejandro', 'Linares', 'Tejedor', '2001-09-27'),
+('Cédula de ciudadanía', '8001201', 'Carlos', '', 'Sarmiento', 'Perez', '1996-08-03');
+COMMIT;
+
+
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`documento`);
+COMMIT;
+
