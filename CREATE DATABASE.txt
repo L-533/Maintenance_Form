@@ -19,7 +19,6 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`tipo_documento`, `documento`, `p_nombre`, `s_nombre`, `p_apellido`, `s_apellido`, `fecha_nacimiento`) VALUES
-('Cédula de ciudadanía', '1002458255', 'Luis', 'Alejandro', 'Linares', 'Tejedor', '2001-09-27'),
 ('Cédula de ciudadanía', '8001201', 'Carlos', '', 'Sarmiento', 'Perez', '1996-08-03');
 COMMIT;
 
